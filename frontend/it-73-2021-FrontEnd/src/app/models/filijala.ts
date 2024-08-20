@@ -1,8 +1,9 @@
 import { Banka } from "./banka";
-export class Filijala {
-    id!:number;
-    adresa!:string;
-    poseduje_sef!:boolean;
-    broj_pultova!:number;
+
+export class Filijala{
+    id!: number;
+    adresa!: string;
+    brojPultova!: number;
+    posedujeSef!: boolean;       
     banka!: Banka;
 }
