@@ -23,11 +23,12 @@ import RVA.services.BankaService;
 @RestController
 public class BankaController {
 
+	
 	@Autowired
 	private BankaService service;
 	
-	@GetMapping("/sud")
-	public List<Banka> getAllSuds(){
+	@GetMapping("/banka")
+	public List<Banka> getAllBanka(){
 		return service.getAll();
 	}
 	
@@ -41,47 +42,53 @@ public class BankaController {
 		id + " does not exist.");
 	}
 	
+	
 	@GetMapping("/banka/naziv/{naziv}")
-	public ResponseEntity<?> getBankasByNaziv(@PathVariable String naziv){
-		List<Banka> bankas = service.getBankasByNaziv(naziv);
-		if(bankas.isEmpty()) {
+	public ResponseEntity<?> getBankaByNaziv(@PathVariable String naziv){
+		List<Banka> banka = service.getBankaByNaziv(naziv);
+		if(banka.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Resources"
 					+ " with Naziv: " + naziv + " could not be found.");
 		}
-		return ResponseEntity.ok(bankas);
+		return ResponseEntity.ok(banka);
+	}
+	
+	@GetMapping("/banka/pib/{pib}")
+	public ResponseEntity<?> getBankaByPib(@PathVariable int pib){
+		List<Banka> banka = service.getBankaByPib(pib);
+		if(banka.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Resources" + " with PIB: " + pib + " could not be found.");
+		}
+		return ResponseEntity.ok(banka);
 	}
 	
 	@PostMapping("/banka")
 	public ResponseEntity<?> createBanka(@RequestBody Banka banka){
 		if(service.existsById(banka.getId())) {
-			return ResponseEntity.status(409).body("Resource with" +
-		" inserted values already exists.");
-		} 
+			return ResponseEntity.status(409).body("Resource already exists!");
+		}
 		Banka savedBanka = service.create(banka);
 		URI uri = URI.create("/banka/" + savedBanka.getId());
 		return ResponseEntity.created(uri).body(savedBanka);
 	}
 	
-	@PutMapping("/Banka/id/{id}")
+	@PutMapping("/banka/id/{id}")
 	public ResponseEntity<?> updateBanka(@RequestBody Banka banka, @PathVariable int id){
 		Optional<Banka> updatedBanka = service.update(banka, id);
-		if(updatedBanka.isPresent())  {
+		if(updatedBanka.isPresent()) {
 			return ResponseEntity.ok(updatedBanka);
-		} 
-		return ResponseEntity.status(404).body("Resource with requested ID: " +
-		+ id + " cannont be updated as it doesn't exist.");
+		}
+		return ResponseEntity.status(404).body("Resource with requested ID: " + id + " could not be" + 
+				" updated because it does not exist!");
 	}
 	
 	@DeleteMapping("/banka/id/{id}")
-	public ResponseEntity<?> deletedSud(@PathVariable int id) {
+	public ResponseEntity<?> deleteBanka(@PathVariable int id ){
 		if(service.existsById(id)) {
 			service.delete(id);
-			return ResponseEntity.ok("Resource with ID: " + id +
-					"has been deleted.");
+			return ResponseEntity.ok("Resource with ID: " + id + " has been deleted!");
 		}
-		return ResponseEntity.status(404).body("Resourse with requested ID: " +
-		" cannont be deleted as it doesn't exist.");
-				
+		return ResponseEntity.status(404).body("Resource with requested ID: " + id + " could not be" + 
+				" deleted because it does not exist!");
 	}
-	
 }

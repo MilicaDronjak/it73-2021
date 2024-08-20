@@ -13,34 +13,37 @@ import RVA.services.BankaService;
 
 @Component
 public class BankaServiceImpl implements BankaService {
-	
-	
+
 	@Autowired
 	private BankaRepository repo;
-
 	@Override
 	public List<Banka> getAll() {
+		// TODO Auto-generated method stub
 		return repo.findAll();
 	}
 
 	@Override
 	public boolean existsById(int id) {
+		// TODO Auto-generated method stub
 		return repo.existsById(id);
 	}
-	
+
+	@Override
 	public Optional<Banka> findById(int id) {
+		// TODO Auto-generated method stub
 		return repo.findById(id);
 	}
 
 	@Override
 	public Banka create(Banka t) {
+		// TODO Auto-generated method stub
 		return repo.save(t);
 	}
 
 	@Override
 	public Optional<Banka> update(Banka t, int id) {
-		if(existsById(id))
-		{
+		// TODO Auto-generated method stub
+		if(existsById(id)) {
 			t.setId(id);
 			return Optional.of(repo.save(t));
 		}
@@ -49,21 +52,20 @@ public class BankaServiceImpl implements BankaService {
 
 	@Override
 	public void delete(int id) {
-		repo.deleteById(id);
+		// TODO Auto-generated method stub
+			repo.deleteById(id);
 	}
 
 	@Override
-	public List<Banka> getBankasByNaziv(String naziv) {
+	public List<Banka> getBankaByNaziv(String naziv) {
+		// TODO Auto-generated method stub
 		return repo.findByNazivContainingIgnoreCase(naziv);
 	}
-	
-	@Override
-	public List<Banka> getBankasByKontakt(String kontakt) {
-		return repo.findByKontaktContainingIgnoreCase(kontakt);
-	}
 
 	@Override
-	public List<Banka> getBankasByPIB(int PIB) {
-		return repo.findByPIBContainingIgnoreCase(PIB);
+	public List<Banka> getBankaByPib(int pib) {
+		// TODO Auto-generated method stub
+		return repo.findByPibEquals(pib);
 	}
+
 }

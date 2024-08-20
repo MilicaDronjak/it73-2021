@@ -1,8 +1,9 @@
 package RVA.models;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -10,40 +11,41 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 
-public class Usluga implements Serializable{
-private static final long serialVersionUID = 1L;
-	
+@Entity
+public class Usluga implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	@Id
-	@SequenceGenerator(name = "Usluga_SEQ_GENERATOR", sequenceName = "Usluga_SEQ",
-	allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Usluga_SEQ_GENERATOR")
+	@SequenceGenerator(name = "USLUGA_SEQ_GENERATOR", sequenceName = "USLUGA_SEQ", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USLUGA_SEQ_GENERATOR")
 	private int id;
 	private String naziv;
-	private String opis_usluge;
-	private Date datum_ugovora;
-	private int provizija;
+	private String opisUsluge;
+	private Date datumUgovora;
+	private double provizija;
 	
-	@ManyToOne // strani kljuc
-	@JoinColumn(name = "usluga")
-	private Filijala filijala;
-	
-	@ManyToOne // strani kljuc
-	@JoinColumn(name = "usluga")
+	@ManyToOne
+	@JoinColumn(name = "korisnik")
 	private Korisnik korisnik;
 	
+	@ManyToOne
+	@JoinColumn(name = "filijala")
+	private Filijala filijala;
+
 	public Usluga() {
 		
 	}
-
-	public Usluga(int id, String naziv, String opis_usluge, Date datum_ugovora,int provizija, Filijala filijala,Korisnik korisnik) {
+	
+	public Usluga(int id, String naziv, String opisUsluge, Date datumUgovora, double provizija, Korisnik korisnik, Filijala filijala) {
 		this.id = id;
 		this.naziv = naziv;
-		this.opis_usluge=opis_usluge;
-		this.datum_ugovora=datum_ugovora;
-		this.provizija=provizija;
-		this.filijala=filijala;
-		this.korisnik=korisnik;
+		this.opisUsluge = opisUsluge;
+		this.datumUgovora = datumUgovora;
+		this.provizija = provizija;
+		this.korisnik = korisnik;
+		this.filijala = filijala;
 	}
+	
 	public int getId() {
 		return id;
 	}
@@ -59,33 +61,31 @@ private static final long serialVersionUID = 1L;
 	public void setNaziv(String naziv) {
 		this.naziv = naziv;
 	}
-	
+
 	public String getOpis_usluge() {
-		return opis_usluge;
+		return opisUsluge;
 	}
 
-	public void setOpis_usluge(String opis_usluge) {
-		this.opis_usluge = opis_usluge;
+	public void setOpis_usluge(String opisUsluge) {
+		this.opisUsluge = opisUsluge;
 	}
-	
 
 	public Date getDatum_ugovora() {
-		return datum_ugovora;
+		return datumUgovora;
 	}
 
-	public void setDatum_ugovora(Date datum_ugovora) {
-		this.datum_ugovora = datum_ugovora;
+	public void setDatum_ugovora(Date datumUgovora) {
+		this.datumUgovora = datumUgovora;
 	}
-	
 
-	public int getProvizija() {
+	public double getProvizija() {
 		return provizija;
 	}
 
-	public void setProvizija(int Provizija) {
+	public void setProvizija(double provizija) {
 		this.provizija = provizija;
 	}
-	
+
 	public Korisnik getKorisnik() {
 		return korisnik;
 	}
@@ -93,7 +93,7 @@ private static final long serialVersionUID = 1L;
 	public void setKorisnik(Korisnik korisnik) {
 		this.korisnik = korisnik;
 	}
-	
+
 	public Filijala getFilijala() {
 		return filijala;
 	}

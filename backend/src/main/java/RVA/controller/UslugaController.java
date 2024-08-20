@@ -15,23 +15,34 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import RVA.models.Filijala;
+import RVA.models.Korisnik;
 import RVA.models.Usluga;
+import RVA.services.FilijalaService;
+import RVA.services.KorisnikService;
 import RVA.services.UslugaService;
 
-@CrossOrigin
+@CrossOrigin //anotacija koja se dodaje da bismo kada pokrenemo aplikaciju mogli da vidimo sve podatke. 
+//bez ove anotacije backend ne dozvoljava deljenje informacija i podataka
 @RestController
 public class UslugaController {
 
 	@Autowired
 	private UslugaService service;
 	
+	@Autowired
+	private FilijalaService filijalaService;
+	
+	@Autowired
+	private KorisnikService korisnikService;
+	
 	@GetMapping("/usluga")
-	public List<Usluga> getAllUslugas(){
+	public List<Usluga> getAllUsluga(){
 		return service.getAll();
 	}
 	
 	@GetMapping("/usluga/id/{id}")
-	public ResponseEntity<?> getUslugaById(@PathVariable int id){
+	public ResponseEntity<?> getUsluga(@PathVariable int id){
 		Optional<Usluga> usluga = service.findById(id);
 		if(usluga.isPresent()) {
 			return ResponseEntity.ok(usluga.get());
@@ -39,20 +50,41 @@ public class UslugaController {
 		return ResponseEntity.status(404).body("Resource with requested ID: " + id + " does not exist!");
 	}
 	
-	@GetMapping("/usluga/opis_usluge/{opis_usluge}")
-	public ResponseEntity<?> getUcesniksByOpis_usluge(@PathVariable String opis_usluge){
-		List<Usluga> usluga = service.getUslugasByNaziv(opis_usluge);
-		if(usluga.isEmpty()) {
-			return ResponseEntity.status(404).body("Resources with opis_usluge: " + opis_usluge + " do not exist!");
+	@GetMapping("/usluga/filijala/{foreignKey}")
+	public ResponseEntity<?> getUslugaByFilijala(@PathVariable int foreignKey){
+		Optional<Filijala> filijala = filijalaService.findById(foreignKey);
+		if(filijala.isPresent()) {
+			List<Usluga> usluga = service.getUslugaByForeignKey(filijala.get());
+			if(usluga.isEmpty()) {
+				return ResponseEntity.status(404).body("Resources with foreign key: " + foreignKey
+						+ " do not exist!");
+			}else {
+				return ResponseEntity.ok(usluga);
+			}
 		}
-		return ResponseEntity.ok(usluga);
+		return ResponseEntity.status(400).body("Invalid foreign key!");
+	}
+	
+	@GetMapping("/usluga/korisnik/{foreignKey}")
+	public ResponseEntity<?> getUslugaByKorisnik(@PathVariable int foreignKey){
+		Optional<Korisnik> korisnik = korisnikService.findById(foreignKey);
+		if(korisnik.isPresent()) {
+			List<Usluga> usluga = service.getUslugaByForeignKey(korisnik.get());
+			if(usluga.isEmpty()) {
+				return ResponseEntity.status(404).body("Resources with foreign key: " + foreignKey
+						+ " do not exist!");
+			}else {
+				return ResponseEntity.ok(usluga);
+			}
+		}
+		return ResponseEntity.status(400).body("Invalid foreign key!");
 	}
 	
 	@GetMapping("/usluga/naziv/{naziv}")
-	public ResponseEntity<?> getUslugasByNaziv(@PathVariable String naziv){
-		List<Usluga> usluga = service.getUslugasByNaziv(naziv);
+	public ResponseEntity<?> getUslugaByNaziv(@PathVariable String naziv){
+		List<Usluga> usluga = service.getUslugaByNaziv(naziv);
 		if(usluga.isEmpty()) {
-			return ResponseEntity.status(404).body("Resources with naziv: " + naziv + " do not exist!");
+			return ResponseEntity.status(404).body("Resources with Cena: " + naziv + " do not exist!");
 		}
 		return ResponseEntity.ok(usluga);
 	}
@@ -68,7 +100,7 @@ public class UslugaController {
 	}
 	
 	@PutMapping("/usluga/id/{id}")
-	public ResponseEntity<?> updateUsluga(@RequestBody Usluga usluga, @PathVariable int id){
+	public ResponseEntity<?> updateBankService(@RequestBody Usluga usluga, @PathVariable int id){
 		Optional<Usluga> updatedUsluga = service.update(usluga, id);
 		if(updatedUsluga.isPresent()) {
 			return ResponseEntity.ok(updatedUsluga.get());

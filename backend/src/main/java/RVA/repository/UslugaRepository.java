@@ -10,10 +10,9 @@ import RVA.models.Usluga;
 
 
 
-public interface UslugaRepository extends JpaRepository<Usluga, Integer>{
+public interface UslugaRepository extends JpaRepository<Usluga, Integer> {
 
-	List<Usluga> findByNazivContainingIgnoreCase(String naziv);
-	List<Usluga> findByOpis_uslugeContainingIgnoreCase(String opis_usluge);
-	List<Usluga> findByFilijala(Filijala filijala);
+	List<Usluga> findByNazivContainingIgnoreCase (String naziv);
+	List<Usluga> findByFilijala (Filijala filijala );
 	List<Usluga> findByKorisnik(Korisnik korisnik);
 }

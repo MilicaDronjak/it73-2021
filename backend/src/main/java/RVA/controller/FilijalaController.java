@@ -24,17 +24,15 @@ import RVA.services.FilijalaService;
 @RestController
 public class FilijalaController {
 
-	private BankaService
-	bankaService;
-	
 	@Autowired
 	private FilijalaService service;
 	
 	@Autowired
-	private FilijalaService filijalaService;
+	private BankaService bankaService;
+	
 	
 	@GetMapping("/filijala")
-	public List<Filijala> getAllFilijalas(){
+	public List<Filijala> getAllFilijala(){
 		return service.getAll();
 	}
 	
@@ -47,11 +45,35 @@ public class FilijalaController {
 		return ResponseEntity.status(404).body("Resource with requested ID: " + id + " does not exist!");
 	}
 	
-	@GetMapping("/filijala/poseduje_sef/{poseduje_sef}")
-	public ResponseEntity<?> getPredmetsByFilijala(@PathVariable boolean poseduje_sef){
-		List<Filijala> filijala = service.getFilijalasByPoseduje_sef(poseduje_sef);
+	@GetMapping("/filijala/banka/{foreignKey}")
+	public ResponseEntity<?> getFilijalaByBanka(@PathVariable int foreignKey){
+		Optional<Banka> banka = bankaService.findById(foreignKey);
+		if(banka.isPresent()) {
+			List<Filijala> filijala = service.getFilijalaByForeignKey(banka.get());
+			if(filijala.isEmpty()) {
+				return ResponseEntity.status(404).body("Resources with foreign key: " + foreignKey
+						+ " do not exist!");
+			}else {
+				return ResponseEntity.ok(filijala);
+			}
+		}
+		return ResponseEntity.status(400).body("Invalid foreign key!");
+	}
+	
+	@GetMapping("/filijala/adresa/{adresa}")
+	public ResponseEntity<?> getFilijalaByAdresa(@PathVariable String adresa){
+		List<Filijala> filijala = service.getFilijalaByAdresa(adresa);
 		if(filijala.isEmpty()) {
-			return ResponseEntity.status(404).body("Resources with poseduje_sef: " + poseduje_sef + " do not exist!");
+			return ResponseEntity.status(404).body("Resources with adress: " + adresa + " do not exist!");
+		}
+		return ResponseEntity.ok(filijala);
+	}
+	
+	@GetMapping("/filijala/posedujeSef/{posedujeSef}")
+	public ResponseEntity<?> getFilijalaByPosedujeSef(@PathVariable boolean posedujeSef){
+		List<Filijala> filijala = service.getFilijalaByPosedujeSef(posedujeSef);
+		if(filijala.isEmpty()) {
+			return ResponseEntity.status(404).body("Resources with boss: " + posedujeSef + " do not exist!");
 		}
 		return ResponseEntity.ok(filijala);
 	}
@@ -86,18 +108,6 @@ public class FilijalaController {
 				" deleted because it does not exist!");
 	}
 	
-	@GetMapping("/filijala/banka/{foreignKey}")
-	public ResponseEntity<?> getFilijalaByBanka(@PathVariable int foreignKey){
-		Optional<Banka> banka = bankaService.findById(foreignKey);
-		if(banka.isPresent()) {
-			List<Filijala> filijala = service.getByForeignKey(banka.get());
-			if(filijala.isEmpty()) {
-				return ResponseEntity.status(404).body("Resources with foreign key: " + foreignKey
-						+ " do not exist!");
-			}else {
-				return ResponseEntity.ok(filijala);
-			}
-		}
-		return ResponseEntity.status(400).body("Invalid foreign key!");
-	}
+	
+	
 }

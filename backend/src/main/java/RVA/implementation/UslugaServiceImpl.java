@@ -14,33 +14,37 @@ import RVA.services.UslugaService;
 
 
 @Component
-public class UslugaServiceImpl implements UslugaService{
+public class UslugaServiceImpl implements UslugaService {
 
 	@Autowired
 	private UslugaRepository repo;
-	
 	@Override
 	public List<Usluga> getAll() {
+		// TODO Auto-generated method stub
 		return repo.findAll();
 	}
 
 	@Override
 	public boolean existsById(int id) {
+		// TODO Auto-generated method stub
 		return repo.existsById(id);
 	}
 
 	@Override
 	public Optional<Usluga> findById(int id) {
+		// TODO Auto-generated method stub
 		return repo.findById(id);
 	}
 
 	@Override
 	public Usluga create(Usluga t) {
+		// TODO Auto-generated method stub
 		return repo.save(t);
 	}
 
 	@Override
 	public Optional<Usluga> update(Usluga t, int id) {
+		// TODO Auto-generated method stub
 		if(existsById(id)) {
 			t.setId(id);
 			return Optional.of(repo.save(t));
@@ -50,23 +54,26 @@ public class UslugaServiceImpl implements UslugaService{
 
 	@Override
 	public void delete(int id) {
-		repo.deleteById(id);
+		// TODO Auto-generated method stub
+			repo.deleteById(id);
 	}
 
 	@Override
-	public List<Usluga> getUslugasByNaziv(String naziv) {
+	public List<Usluga> getUslugaByNaziv(String naziv) {
+		// TODO Auto-generated method stub
 		return repo.findByNazivContainingIgnoreCase(naziv);
 	}
 
 	@Override
-	public List<Usluga> getByFilijala(Filijala filijala) {
+	public List<Usluga> getUslugaByForeignKey(Filijala filijala) {
+		// TODO Auto-generated method stub
 		return repo.findByFilijala(filijala);
 	}
 
 	@Override
-	public List<Usluga> getByKorisnik(Korisnik korisnik) {
+	public List<Usluga> getUslugaByForeignKey(Korisnik korisnik) {
+		// TODO Auto-generated method stub
 		return repo.findByKorisnik(korisnik);
 	}
 
-	
 }

@@ -9,8 +9,7 @@ import RVA.models.Banka;
 @Service
 public interface BankaService extends CrudService<Banka> {
 
-	List<Banka> getBankasByNaziv(String naziv);
-	List<Banka> getBankasByKontakt(String kontakt);
-	List<Banka> getBankasByPIB (int PIB);
-}
+	List<Banka> getBankaByNaziv (String naziv);
+	List<Banka> getBankaByPib (int pib);
 
+}

@@ -10,31 +10,40 @@ import RVA.models.Korisnik;
 import RVA.repository.KorisnikRepository;
 import RVA.services.KorisnikService;
 
-
 @Component
 public class KorisnikServiceImpl implements KorisnikService {
-	
+
 	@Autowired
 	private KorisnikRepository repo;
-
 	@Override
 	public List<Korisnik> getAll() {
+		// TODO Auto-generated method stub
 		return repo.findAll();
 	}
 
 	@Override
 	public boolean existsById(int id) {
+		// TODO Auto-generated method stub
 		return repo.existsById(id);
 	}
 
 	@Override
+	public Optional<Korisnik> findById(int id) {
+		// TODO Auto-generated method stub
+		return repo.findById(id);
+	}
+
+	@Override
 	public Korisnik create(Korisnik t) {
+		// TODO Auto-generated method stub
 		return repo.save(t);
 	}
 
 	@Override
 	public Optional<Korisnik> update(Korisnik t, int id) {
-		if(existsById(id)) {
+		// TODO Auto-generated method stub
+		if(existsById(id))
+		{
 			t.setId(id);
 			return Optional.of(repo.save(t));
 		}
@@ -43,28 +52,26 @@ public class KorisnikServiceImpl implements KorisnikService {
 
 	@Override
 	public void delete(int id) {
-		repo.deleteById(id);
-
+		// TODO Auto-generated method stub
+			repo.deleteById(id);
 	}
 
 	@Override
-	public List<Korisnik> getKorisniksByIme(String ime) {
+	public List<Korisnik> getKorisnikByIme(String ime) {
+		// TODO Auto-generated method stub
 		return repo.findByImeContainingIgnoreCase(ime);
 	}
-	
+
 	@Override
-	public List<Korisnik> getKorisniksByPrezime(String prezime) {
+	public List<Korisnik> getKorisnikByPrezime(String prezime) {
+		// TODO Auto-generated method stub
 		return repo.findByPrezimeContainingIgnoreCase(prezime);
-	}
-	
-	@Override
-	public List<Korisnik> getKorisniksByMaticni_broj(String maticni_broj) {
-		return repo.findByMaticni_brojContainingIgnoreCase(maticni_broj);
 	}
 
 	@Override
-	public Optional<Korisnik> findById(int id) {
-		return repo.findById(id);
+	public List<Korisnik> getKorisnikByMaticniBroj(String maticniBroj) {
+		// TODO Auto-generated method stub
+		return repo.findBymaticniBroj(maticniBroj);
 	}
 
 }

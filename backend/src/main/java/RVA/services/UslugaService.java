@@ -11,10 +11,9 @@ import RVA.models.Usluga;
 
 
 @Service
-public interface UslugaService extends CrudService<Usluga>{
-	
-	List<Usluga> getUslugasByNaziv(String naziv);
-	List<Usluga> getByFilijala(Filijala filijala);
-	List<Usluga> getByKorisnik(Korisnik korisnik);
+public interface UslugaService extends CrudService<Usluga> {
 
+	List<Usluga> getUslugaByNaziv(String naziv);
+	List<Usluga> getUslugaByForeignKey(Filijala filijala);
+	List<Usluga> getUslugaByForeignKey(Korisnik korisnik);
 }

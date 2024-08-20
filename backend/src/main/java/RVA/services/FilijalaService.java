@@ -10,11 +10,11 @@ import RVA.models.Filijala;
 
 
 @Service
-public interface FilijalaService extends CrudService<Filijala>{
+public interface FilijalaService extends CrudService<Filijala> {
 	
-	List<Filijala> getFilijalasByAdresa(String adresa);
-	List<Filijala> getFilijalasByBroj_pultova(int broj_pultova);
-	List<Filijala> getFilijalasByPoseduje_sef(boolean poseduje_sef);
-	List<Filijala> getByForeignKey(Banka banka);
+	List<Filijala> getFilijalaByForeignKey (Banka banka);
+	List<Filijala> getFilijalaByAdresa(String adresa);
+	List<Filijala> getFilijalaByPosedujeSef (boolean posedujeSef);
+
 
 }

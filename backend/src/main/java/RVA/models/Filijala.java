@@ -1,41 +1,53 @@
 package RVA.models;
 
 import java.io.Serializable;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 
-public class Filijala implements Serializable{
-private static final long serialVersionUID = 1L;
-	
+@Entity
+public class Filijala implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	@Id
-	@SequenceGenerator(name = "FILIJALA_SEQ_GENERATOR", sequenceName = "FILIJALA_SEQ",
-	allocationSize = 1)
+	@SequenceGenerator(name = "FILIJALA_SEQ_GENERATOR", sequenceName = "FILIJALA_SEQ", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FILIJALA_SEQ_GENERATOR")
 	private int id;
 	private String adresa;
-	private int broj_pultova;
-	private boolean poseduje_sef;
+	private int brojPultova;
+	private boolean posedujeSef;
 	
-	@ManyToOne // strani kljuc
-	@JoinColumn(name = "filijala")
+	@ManyToOne //banka je strani kljuc u filijali
+	@JoinColumn(name = "banka")
 	private Banka banka;
 	
-	public Filijala() {
+	@OneToMany(mappedBy = "filijala") //filijala je strani kljuc u usluzi
+	@JsonIgnore
+	private List<Usluga> usluga;
+
+	public Filijala()
+	{
 		
 	}
 	
-	public Filijala(int id, String adresa, int broj_pultova, boolean poseduje_sef, Banka banka) {
+	public Filijala(int id, String adresa, int brojPpultova, boolean posedujeSef, Banka banka, List<Usluga> usluga) {
 		this.id = id;
 		this.adresa = adresa;
-		this.broj_pultova = broj_pultova;
-		this.poseduje_sef = poseduje_sef;
+		this.brojPultova = brojPpultova;
+		this.posedujeSef = posedujeSef;
 		this.banka = banka;
+		this.usluga = usluga;
 	}
+
 	public int getId() {
 		return id;
 	}
@@ -52,22 +64,22 @@ private static final long serialVersionUID = 1L;
 		this.adresa = adresa;
 	}
 
-	public int getBroj_pultova() {
-		return broj_pultova;
+	public int getBrojPpultova() {
+		return brojPultova;
 	}
 
-	public void setBroj_pultova(int broj_pultova) {
-		this.broj_pultova = broj_pultova;
-	}
-	
-	public boolean getPoseduje_sef() {
-		return poseduje_sef;
+	public void setBrojPpultova(int brojPpultova) {
+		this.brojPultova = brojPpultova;
 	}
 
-	public void setPoseduje_sef(boolean poseduje_sef) {
-		this.poseduje_sef = poseduje_sef;
+	public boolean isPosedujeSef() {
+		return posedujeSef;
 	}
-	
+
+	public void setPosedujeSef(boolean posedujeSef) {
+		this.posedujeSef = posedujeSef;
+	}
+
 	public Banka getBanka() {
 		return banka;
 	}
@@ -76,5 +88,15 @@ private static final long serialVersionUID = 1L;
 		this.banka = banka;
 	}
 
+	public List<Usluga> getUsluga() {
+		return usluga;
+	}
 
+	public void setUsluga(List<Usluga> usluga) {
+		this.usluga = usluga;
+	}
+	
+	
+	
+	
 }
