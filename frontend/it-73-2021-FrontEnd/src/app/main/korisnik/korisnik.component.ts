@@ -62,13 +62,4 @@ export class KorisnikComponent implements OnInit, OnDestroy{
     filter = filter.toLocaleLowerCase();
     this.dataSource.filter = filter;
   }
-
-  // public sortByName(column: keyof Korisnik) {
-  //   this.dataSource.data = this.dataSource.data.sort((a, b) => a[column].localeCompare(b[column]));
-  // }
-  
-  // public sortbyPreyime(column: keyof Korisnik) {
-  //   this.dataSource.data = this.dataSource.data.sort((a, b) => a[column].localeCompare(b[column]));
-  // }
-
 }

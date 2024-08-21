@@ -85,20 +85,20 @@ export class UslugadialogComponent {
     });
   }
 
-  public delete() {
+  public delete(): void {
     this.service.deleteUsluga(this.data.id).subscribe({
       next: (data) => {
-        this.snackBar.open(`Uslluga sa id ${data.id} obrisana!`, 'Zatvori!', {
-          duration: 1000,
-        });
+        this.snackBar.open(`Usluga sa id ${this.data.id} je obrisana!`, 'Zatvori!', { duration: 1000 });
+        this.dialogRef.close(1);
       },
       error: (err) => {
-        console.error(err);
-        this.snackBar.open('Neuspešno brisanje!', 'Zatvori!', {
-          duration: 1000,
-        });
-      },
+        console.error('Error deleting usluga:', err);
+        this.snackBar.open('Neuspešno brisanje usluge!', 'Zatvori!', { duration: 2000 });
+      }
     });
   }
+
+
+
 }
 

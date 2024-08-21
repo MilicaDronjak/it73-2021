@@ -2,7 +2,7 @@
 /* Global Styles*/
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #ffe6f2; /* Baby roze pozadina */
+    background-color: #ffe6f2; 
     margin: 0;
     padding: 0;
     display: flex;
@@ -32,11 +32,11 @@ body {
   .title {
     flex-grow: 1;
     font-size: 24px;
-    color: #333333; /* Tamno siva boja */
+    color: #333333; 
   }
   
   .icon {
-    color: #f86182; /* Svetlo roze boja */
+    color: #f86182; 
   }
   
   /* Profile Styles */
@@ -62,13 +62,13 @@ body {
   
   .name {
     font-size: 22px;
-    color: #333333; /* Tamno siva boja */
+    color: #333333; 
     margin: 10px 0;
   }
   
   .bio, .contact, .birthdate, .university, .about-me {
     font-size: 16px;
-    color: #555555; /* Svetlija tamno siva boja */
+    color: #555555; 
     margin: 5px 0;
     display: flex;
     align-items: center;
@@ -82,24 +82,4 @@ body {
   .about-me {
     margin-top: 15px;
   }
-  
-  .social {
-    margin-top: 15px;
-  }
-  
-  .social a {
-    text-decoration: none;
-    color: #f86182; /* Nežno roze boja */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .social a:hover {
-    text-decoration: underline;
-  }
-  
-  .social .icon {
-    margin-right: 5px;
-    color: #f86182; /* Nežno roze boja */
-  }
+

@@ -26,9 +26,6 @@
   
       <ng-container matColumnDef="ime">
         <mat-header-cell mat-sort-header *matHeaderCellDef>Ime 
-          <!-- <button mat-icon-button (click)="sortByName('ime')">
-          <mat-icon>sort</mat-icon>
-          </button> -->
         </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{ row.ime }} </mat-cell>
       </ng-container>
@@ -48,8 +45,7 @@
           <button
             mat-icon-button
             color="accent"
-            (click)="openDialog(2, row.id, row.ime, row.prezime, row.maticni_broj)"
-          >
+            (click)="openDialog(2, row.id, row.ime, row.prezime, row.maticni_broj)">
             <mat-icon color="accent" aria-label="Edit">edit</mat-icon>
           </button>
           <button mat-icon-button color="accent" (click)="openDialog(3, row.id, row.ime, row.prezime, row.maticni_broj)">

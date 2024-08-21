@@ -50,9 +50,6 @@
         <ng-container matColumnDef="actions">
           <mat-header-cell *matHeaderCellDef>Akcije</mat-header-cell>
           <mat-cell *matCellDef="let row; let i = index">
-            <button mat-icon-button color="accent" (click)="openDialog(1)">
-              <mat-icon>add</mat-icon>
-            </button>
             <button mat-icon-button color="accent" (click)="openDialog(2, row.id, row.adresa, row.brojPpultova, row.posedujeSef, row.banka)">
               <mat-icon color="accent" aria-label="Edit">edit</mat-icon>
             </button>

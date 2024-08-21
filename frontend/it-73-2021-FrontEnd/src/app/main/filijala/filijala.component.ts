@@ -31,6 +31,7 @@ export class FilijalaComponent implements OnInit, OnDestroy {
 
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
+  
   constructor(private service: FilijalaService, public dialog: MatDialog) {}
 
   ngOnDestroy(): void {

@@ -1,4 +1,3 @@
-
 import { USLUGA_BY_FILIJALA_URL, USLUGA_URL } from 'src/constants';
 import { Usluga } from './../models/usluga';
 import { HttpClient } from '@angular/common/http';
@@ -33,3 +32,4 @@ export class UslugaService {
     return this.httpClient.delete(`${USLUGA_URL}/id/${uslugaID}`, {responseType:"text"});
   }
 }
+

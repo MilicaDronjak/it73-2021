@@ -69,9 +69,4 @@ export class BankaComponent {
     filter = filter.toLocaleLowerCase();
     this.dataSource.filter = filter;
   }
-
-  // public sortByNaziv(column: keyof Banka) {
-  //   this.dataSource.data = this.dataSource.data.sort((a, b) => a[column].localeCompare(b[column]));
-  // }
-
-  }
+}
